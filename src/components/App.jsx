@@ -9,14 +9,11 @@ import fetchImage from './FetchApi/FetchApi';
 export function App() {
   const [inputData, setInputData] = useState('');
   const [items, setItems] = useState([]);
-  const [totalImages, setTotalImages] = useState(null);
-  const [isShowMore, setIsShowMore] = useState(false);
-  const [isShowModal, setIsShowModal] = useState(false);
-  const [hits, setHits] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState('');
-  const [modalImages, setModalImages] = useState('');
   const [page, setPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isShowModal, setIsShowModal] = useState(false);
+  const [modalImages, setModalImages] = useState('');
+  const [error, setError] = useState('');
 
   const getImages = useCallback(async () => {
     if (!inputData) {
@@ -33,17 +30,17 @@ export function App() {
       console.log(error);
       setError(error.message);
     } finally {
-      setIsLoading(isLoading);
+      setIsLoading(false);
     }
   }, [inputData, page]);
 
-  const handleFormSubmit = newInputData => {
+  function handleFormSubmit(newInputData) {
     if (newInputData !== inputData) {
       setInputData(newInputData);
       setPage(1);
       setItems([]);
     }
-  };
+  }
   useEffect(() => {
     if (inputData) {
       getImages();
@@ -70,9 +67,7 @@ export function App() {
       {isLoading && <Loader />}
       {error && <h1>{error}</h1>}
       {items.length > 0 && !isLoading && (
-        <Button onClick={handleClick}>
-          {isShowMore ? 'Hide images' : 'Show more'}
-        </Button>
+        <Button onClick={handleClick}></Button>
       )}
       {isShowModal && (
         <Modal
