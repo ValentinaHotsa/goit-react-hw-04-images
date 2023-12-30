@@ -25,7 +25,6 @@ export function App() {
     setIsLoading(true);
 
     try {
-      // setError(error);
       const { hits, total } = await fetchImage(inputData, page);
       if (total) {
         setItems(prevState => [...prevState, ...hits]);
